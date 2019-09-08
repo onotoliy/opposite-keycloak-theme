@@ -12,7 +12,7 @@
 
           <div class="form-logo"></div>
 
-          <div class="${properties.kcFormGroupClass!}">
+          <div class="${properties.kcFormGroupClass!}" style="margin-top: 100px; margin-left: -272px;">
             <div class="wrap-input-title">
               <span class="input-title">${msg("lblEmailOrUsername")}</span>
             </div>
