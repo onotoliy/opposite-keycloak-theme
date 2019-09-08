@@ -1,0 +1,63 @@
+plugins {
+    id 'java'
+    id 'maven'
+    id 'maven-publish'
+    id 'com.jfrog.bintray' version '1.8.4'
+}
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.bintray'
+
+group 'com.github.onotoliy.opposite'
+version "$version"
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+publishing {
+    repositories {
+        maven {
+            url  = 'https://dl.bintray.com/a-k-pohresniy/onotoliy'
+        }
+    }
+
+    publications {
+        MyPublication(MavenPublication) {
+            from components.java
+            groupId = project.group
+            artifactId = project.archivesBaseName
+            version = project.version
+        }
+    }
+}
+
+bintray {
+    user = 'a-k-pohresniy'
+    key = '61891da6146e09d692266668fcf795d84824afa6'
+    publications = ['MyPublication']
+    publish = true
+    pkg {
+        repo = 'onotoliy'
+        name = 'keycloak-theme'
+        userOrg = 'a-k-pohresniy'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/onotoliy/opposite-keycloak-theme.git'
+    }
+    version {
+        name = project.version
+        released = new Date()
+        vcsTag = project.version
+
+        gpg {
+            sign = true
+            passphrase = 'Lenovo14'
+        }
+    }
+}
+
+javadoc {
+    options.encoding = 'UTF-8'
+}
